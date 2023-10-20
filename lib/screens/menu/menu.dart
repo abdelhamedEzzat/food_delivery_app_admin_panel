@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery_admin_panel/blocs/categories/categories_bloc.dart';
+import 'package:food_delivery_admin_panel/blocs/product/product_bloc.dart';
 import 'package:food_delivery_admin_panel/config/responsive.dart';
-import 'package:food_delivery_admin_panel/models/category_model.dart';
 import 'package:food_delivery_admin_panel/models/product_model.dart';
 import 'package:food_delivery_admin_panel/widgets/custom_appbar.dart';
 import 'package:food_delivery_admin_panel/widgets/product_card.dart';
@@ -66,6 +68,7 @@ class MenuScreen extends StatelessWidget {
                               constraints: const BoxConstraints(
                                   maxHeight: 1000, minHeight: 300),
                               child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(child: _buildCategories(context)),
                                   const SizedBox(
@@ -123,23 +126,59 @@ class MenuScreen extends StatelessWidget {
 
   Container _buildCategories(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
       color: Theme.of(context).colorScheme.background,
+      padding: const EdgeInsets.all(20.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            "Category",
+            'Categories',
             style: Theme.of(context).textTheme.headlineMedium,
           ),
-          const SizedBox(
-            height: 20,
+          const SizedBox(height: 20),
+          BlocBuilder<CategoriesBloc, CategoriesState>(
+            builder: (context, state) {
+              if (state is CategoriesLoading) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                );
+              }
+              if (state is CategoriesLoaded) {
+                return ReorderableListView(
+                  shrinkWrap: true,
+                  children: [
+                    for (int index = 0;
+                        index < state.categories.length;
+                        index++,)
+                      CategoryListTile(
+                        category: state.categories[index],
+                        onTap: () {
+                          context.read<CategoriesBloc>().add(
+                                SelectCategory(
+                                    category: state.categories[index]),
+                              );
+                        },
+                        key: ValueKey(state.categories[index].id),
+                      ),
+                  ],
+                  onReorder: (oldIndex, newIndex) {
+                    context.read<ProductBloc>().add(
+                          SortProduct(
+                            oldIndex: oldIndex,
+                            newIndex: newIndex,
+                          ),
+                        );
+                  },
+                );
+              } else {
+                return const Text('Something went wrong.');
+              }
+            },
           ),
-          ...Category.categories.map((category) {
-            return CategoryListTile(
-              category: category,
-            );
-          }).toList(),
         ],
       ),
     );
@@ -151,6 +190,8 @@ class MenuScreen extends StatelessWidget {
       color: Theme.of(context).colorScheme.background,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "Product",
@@ -159,11 +200,40 @@ class MenuScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          ...Product.products.map((product) {
-            return ProductListTile(
-              product: product,
-            );
-          }).toList(),
+          BlocBuilder<ProductBloc, ProductState>(
+            builder: (context, state) {
+              if (state is ProductLoading) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                );
+              }
+              if (state is ProductLoaded) {
+                return ReorderableListView(
+                  shrinkWrap: true,
+                  children: [
+                    for (int index = 0; index < state.products.length; index++,)
+                      ProductListTile(
+                        product: state.products[index],
+                        onTap: () {},
+                        key: ValueKey(state.products[index].id),
+                      ),
+                  ],
+                  onReorder: (oldIndex, newIndex) {
+                    context.read<ProductBloc>().add(
+                          SortProduct(
+                            oldIndex: oldIndex,
+                            newIndex: newIndex,
+                          ),
+                        );
+                  },
+                );
+              } else {
+                return const Text('Something went wrong.');
+              }
+            },
+          ),
         ],
       ),
     );
