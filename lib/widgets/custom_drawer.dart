@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_admin_panel/screens/dashBoard/dashboard.dart';
-import 'package:food_delivery_admin_panel/screens/logout/logout.dart';
 import 'package:food_delivery_admin_panel/screens/settings/settings_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -11,19 +9,19 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<String, dynamic> screens = {
-      "DashBoard": {
-        "RouteName": DashBoard.nameRoute,
-        "icon": const Icon(Icons.dashboard)
-      },
+      // "DashBoard": {
+      //   "RouteName": "DashBoard",
+      //   "icon": const Icon(Icons.dashboard)
+      // },
       "Menu": {"RouteName": "MenuScreen", "icon": const Icon(Icons.menu_book)},
       "Setting": {
         "RouteName": SettingScreen.nameRoute,
         "icon": const Icon(Icons.lock_clock)
       },
-      "LogOut": {
-        "RouteName": LogOUT.nameRoute,
-        "icon": const Icon(Icons.logout_outlined)
-      }
+      // "LogOut": {
+      //   "RouteName": "LogOUT",
+      //   "icon": const Icon(Icons.logout_outlined)
+      // }
     };
 
     return Drawer(
