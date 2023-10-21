@@ -29,19 +29,20 @@ class CustomTextFormField extends StatelessWidget {
                   width: 75,
                   child: Text(
                     title,
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 )
               : const SizedBox(),
           SizedBox(width: hasTitle ? 20 : 0),
           Expanded(
             child: Focus(
+              onFocusChange: onFocusChanged ?? (hasFocus) {},
               child: TextFormField(
                 maxLines: maxLines,
                 initialValue: initialValue,
                 onChanged: onChanged,
                 onEditingComplete: () {},
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
                 decoration: InputDecoration(
                   isDense: true,
                   focusedBorder: OutlineInputBorder(
@@ -56,7 +57,6 @@ class CustomTextFormField extends StatelessWidget {
                   ),
                 ),
               ),
-              onFocusChange: onFocusChanged ?? (hasFocus) {},
             ),
           ),
         ],

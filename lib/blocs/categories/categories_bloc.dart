@@ -7,25 +7,25 @@ import 'package:food_delivery_admin_panel/models/category_model.dart';
 part 'categories_event.dart';
 part 'categories_state.dart';
 
-class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
-  CategoriesBloc() : super(CategoriesLoading()) {
+class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
+  CategoryBloc() : super(CategoryLoading()) {
     on<LoadCategory>(_onloadCategory);
     on<SortCategory>(_onSortCategory);
     on<SelectCategory>(_onSelectCategory);
   }
 
   FutureOr<void> _onloadCategory(
-      LoadCategory event, Emitter<CategoriesState> emit) {
+      LoadCategory event, Emitter<CategoryState> emit) {
     Future<void>.delayed(const Duration(seconds: 1));
-    emit(CategoriesLoaded(
+    emit(CategoryLoaded(
       categories: event.categories,
     ));
   }
 
   FutureOr<void> _onSortCategory(
-      SortCategory event, Emitter<CategoriesState> emit) {
-    final state = this.state as CategoriesLoaded;
-    emit(CategoriesLoading());
+      SortCategory event, Emitter<CategoryState> emit) {
+    final state = this.state as CategoryLoaded;
+    emit(CategoryLoading());
     Future<void>.delayed(const Duration(seconds: 1));
     int newindex =
         (event.newIndex > event.oldIndex) ? event.newIndex - 1 : event.newIndex;
@@ -35,15 +35,15 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
         ..remove(slectedCategory)
         ..insert(newindex, slectedCategory);
 
-      emit(CategoriesLoaded(categories: sortedcategory));
+      emit(CategoryLoaded(categories: sortedcategory));
     } catch (e) {}
   }
 
   FutureOr<void> _onSelectCategory(
-      SelectCategory event, Emitter<CategoriesState> emit) {
-    final state = this.state as CategoriesLoaded;
+      SelectCategory event, Emitter<CategoryState> emit) {
+    final state = this.state as CategoryLoaded;
 
-    emit(CategoriesLoaded(
+    emit(CategoryLoaded(
         categories: state.categories, selectedCategory: event.category));
   }
 }

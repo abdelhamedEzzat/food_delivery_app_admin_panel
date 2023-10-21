@@ -24,6 +24,15 @@ class UpdateProduct extends ProductEvent {
   List<Object> get props => [category];
 }
 
+class AddProduct extends ProductEvent {
+  final Product product;
+
+  const AddProduct({required this.product});
+
+  @override
+  List<Object> get props => [product];
+}
+
 final class SortProduct extends ProductEvent {
   final int oldIndex;
   final int newIndex;

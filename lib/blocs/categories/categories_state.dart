@@ -1,19 +1,19 @@
 part of 'categories_bloc.dart';
 
-sealed class CategoriesState extends Equatable {
-  const CategoriesState();
+sealed class CategoryState extends Equatable {
+  const CategoryState();
 
   @override
   List<Object?> get props => [];
 }
 
-final class CategoriesLoading extends CategoriesState {}
+final class CategoryLoading extends CategoryState {}
 
-class CategoriesLoaded extends CategoriesState {
+class CategoryLoaded extends CategoryState {
   final List<Category> categories;
   final Category? selectedCategory;
 
-  const CategoriesLoaded({
+  const CategoryLoaded({
     this.categories = const <Category>[],
     this.selectedCategory,
   });

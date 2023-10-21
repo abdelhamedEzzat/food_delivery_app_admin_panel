@@ -12,18 +12,19 @@ part 'product_event.dart';
 part 'product_state.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
-  final CategoriesBloc _categorybloc;
+  final CategoryBloc _categorybloc;
   StreamSubscription? _categorySubscription;
   ProductBloc({
-    required CategoriesBloc categorybloc,
+    required CategoryBloc categorybloc,
   })  : _categorybloc = categorybloc,
         super(ProductLoading()) {
     on<LoadProduct>(_onLoadProduct);
     on<UpdateProduct>(_onUpdateProduct);
     on<SortProduct>(_onSortProduct);
+    on<AddProduct>(_onAddProduct);
 
     _categorySubscription = _categorybloc.stream.listen((state) {
-      if (state is CategoriesLoaded && state.selectedCategory != null) {
+      if (state is CategoryLoaded && state.selectedCategory != null) {
         add(UpdateProduct(category: state.selectedCategory!));
       }
     });
@@ -46,4 +47,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
   FutureOr<void> _onSortProduct(
       SortProduct event, Emitter<ProductState> emit) {}
+
+  FutureOr<void> _onAddProduct(AddProduct event, Emitter<ProductState> emit) {
+    if (state is ProductLoaded) {
+      List<Product> newProducts = List.from((state as ProductLoaded).products)
+        ..add(event.product);
+
+      emit(ProductLoaded(products: newProducts));
+    }
+  }
 }

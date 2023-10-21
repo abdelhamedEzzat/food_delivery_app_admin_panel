@@ -24,13 +24,13 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => CategoriesBloc()
+          create: (context) => CategoryBloc()
             ..add(LoadCategory(categories: Category.categories)),
         ),
         BlocProvider(
-          create: (context) => ProductBloc(
-              categorybloc: BlocProvider.of<CategoriesBloc>(context))
-            ..add(LoadProduct(products: Product.products)),
+          create: (context) =>
+              ProductBloc(categorybloc: BlocProvider.of<CategoryBloc>(context))
+                ..add(LoadProduct(products: Product.products)),
         ),
         BlocProvider(
             create: (context) => SettingsBloc()

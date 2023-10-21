@@ -1,13 +1,13 @@
 part of 'categories_bloc.dart';
 
-sealed class CategoriesEvent extends Equatable {
-  const CategoriesEvent();
+sealed class CategoryEvent extends Equatable {
+  const CategoryEvent();
 
   @override
   List<Object> get props => [];
 }
 
-final class LoadCategory extends CategoriesEvent {
+final class LoadCategory extends CategoryEvent {
   final List<Category> categories;
 
   const LoadCategory({required this.categories});
@@ -16,15 +16,15 @@ final class LoadCategory extends CategoriesEvent {
   List<Object> get props => [categories];
 }
 
-final class SelectCategory extends CategoriesEvent {
+final class SelectCategory extends CategoryEvent {
   final Category? category;
 
-  const SelectCategory({this.category});
+  const SelectCategory(Category categori, {this.category});
   @override
   List<Object> get props => [category!];
 }
 
-final class SortCategory extends CategoriesEvent {
+final class SortCategory extends CategoryEvent {
   final int oldIndex;
   final int newIndex;
 

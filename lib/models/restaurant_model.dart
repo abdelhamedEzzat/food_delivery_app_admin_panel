@@ -82,7 +82,7 @@ class Restaurant extends Equatable {
         name: "golden Ice gelato artiganele",
         openingHours: OpeningHours.openingHourList,
         products: Product.products,
-        tags: ["iteland", " dessert"])
+        tags: const ["iteland", " dessert"])
   ];
 }
 

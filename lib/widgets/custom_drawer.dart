@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_admin_panel/screens/dashBoard/dashboard.dart';
 import 'package:food_delivery_admin_panel/screens/logout/logout.dart';
-import 'package:food_delivery_admin_panel/screens/menu/menu.dart';
 import 'package:food_delivery_admin_panel/screens/settings/settings_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -17,13 +16,9 @@ class CustomDrawer extends StatelessWidget {
         "icon": const Icon(Icons.dashboard)
       },
       "Menu": {"RouteName": "MenuScreen", "icon": const Icon(Icons.menu_book)},
-      "OpeningHours": {
-        "RouteName": MenuScreen.nameRoute,
-        "icon": const Icon(Icons.lock_clock)
-      },
       "Setting": {
         "RouteName": SettingScreen.nameRoute,
-        "icon": const Icon(Icons.logout_outlined)
+        "icon": const Icon(Icons.lock_clock)
       },
       "LogOut": {
         "RouteName": LogOUT.nameRoute,
