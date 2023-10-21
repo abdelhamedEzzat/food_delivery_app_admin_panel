@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_admin_panel/blocs/categories/categories_bloc.dart';
 import 'package:food_delivery_admin_panel/blocs/product/product_bloc.dart';
+import 'package:food_delivery_admin_panel/blocs/settings/settings_bloc.dart';
+import 'package:food_delivery_admin_panel/config/approuter.dart';
 import 'package:food_delivery_admin_panel/config/theme.dart';
 import 'package:food_delivery_admin_panel/models/category_model.dart';
+import 'package:food_delivery_admin_panel/models/opening_hours_model.dart';
 import 'package:food_delivery_admin_panel/models/product_model.dart';
+import 'package:food_delivery_admin_panel/models/restaurant_model.dart';
 import 'package:food_delivery_admin_panel/screens/menu/menu.dart';
 
 void main() {
@@ -27,12 +31,19 @@ class MyApp extends StatelessWidget {
           create: (context) => ProductBloc(
               categorybloc: BlocProvider.of<CategoriesBloc>(context))
             ..add(LoadProduct(products: Product.products)),
-        )
+        ),
+        BlocProvider(
+            create: (context) => SettingsBloc()
+              ..add(LoadSettings(
+                  restaurant:
+                      Restaurant(openingHours: OpeningHours.openingHourList))))
       ],
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: theme(),
-          home: const MenuScreen()),
+        debugShowCheckedModeBanner: false,
+        theme: theme(),
+        onGenerateRoute: AppRouter.onGeneratedRoute,
+        initialRoute: MenuScreen.nameRoute,
+      ),
     );
   }
 }

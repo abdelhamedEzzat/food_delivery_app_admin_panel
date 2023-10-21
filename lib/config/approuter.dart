@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_admin_panel/screens/dash_board/dash_board.dart';
+import 'package:food_delivery_admin_panel/screens/dashBoard/dashboard.dart';
+import 'package:food_delivery_admin_panel/screens/settings/settings_screen.dart';
 
 import '../screens/logout/logout.dart';
 import '../screens/menu/menu.dart';
@@ -13,8 +14,10 @@ class AppRouter {
         return DashBoard.route();
       case MenuScreen.nameRoute:
         return MenuScreen.route();
-      case LogOut.nameRoute:
-        return LogOut.route();
+      case LogOUT.nameRoute:
+        return LogOUT.route();
+      case SettingScreen.nameRoute:
+        return SettingScreen.route();
 
       default:
         return _errorRoute();

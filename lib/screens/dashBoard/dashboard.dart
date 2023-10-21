@@ -4,7 +4,7 @@ class DashBoard extends StatelessWidget {
   static const String nameRoute = "DashBoard";
   static Route route() {
     return MaterialPageRoute(
-        builder: (_) => const DashBoard(),
+        builder: (context) => const DashBoard(),
         settings: const RouteSettings(name: nameRoute));
   }
 
