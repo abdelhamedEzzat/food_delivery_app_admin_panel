@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This is the first version of the application. This application depends on its suitability for all screen sizes, whether mobile or desktop.
 
 A few resources to get you started if this is your first Flutter project:
 
